@@ -104,6 +104,7 @@ Due to limitations in directly using patient-level labeled data, a **synthetic d
 Radiology report text is provided as user input and analyzed using a Large Language Model (Gemini API) to extract relevant clinical insights and generate explainable summaries.
 
 ---
+Segmentation performance is evaluated using Dice Similarity Coefficient. Dice Score is 0.82 
 
 ### ⚠️ Note
 
@@ -280,6 +281,7 @@ http://127.0.0.1:5000
 ## 📜 License
 
 This project is intended for **academic and research purposes only**.
+
 
 
 
