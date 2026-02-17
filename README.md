@@ -65,6 +65,53 @@ Highlights important regions used for prediction.
 
 ![Output 3](screenshots/output3.png)
 
+## 📊 Dataset
+
+### 🖼 Imaging Data
+
+The imaging dataset is obtained from the **Medical Segmentation Decathlon (MSD) Pancreas dataset**.
+The dataset consists of abdominal CT scans in **NIfTI (.nii.gz) format**, which are widely used in medical imaging.
+
+These images are used for:
+
+* Tumor detection
+* Tumor segmentation using nnU-Net
+* Extraction of tumor volume and size
+
+---
+
+### 🧪 Laboratory Data
+
+Laboratory data was derived based on analysis of the **MIMIC-IV clinical dataset**.
+Access to MIMIC-IV was obtained after completing the required Data Use Agreement (DUA).
+
+From the dataset, relevant clinical biomarkers associated with pancreatic cancer progression were studied.
+Based on literature and clinical relevance, the following features were selected:
+
+* CA19-9
+* Total Bilirubin
+* Alkaline Phosphatase (ALP)
+* Albumin
+* Neutrophil-to-Lymphocyte Ratio (NLR)
+* Age
+
+Due to limitations in directly using patient-level labeled data, a **synthetic dataset** was generated that reflects realistic clinical ranges and stage labels.
+
+---
+
+### 📄 Radiology Reports
+
+Radiology report text is provided as user input and analyzed using a Large Language Model (Gemini API) to extract relevant clinical insights and generate explainable summaries.
+
+---
+
+### ⚠️ Note
+
+* Imaging data is sourced from publicly available datasets (MSD)
+* Clinical data is based on MIMIC-IV analysis, with synthetic generation for modeling
+* No real patient-identifiable data is used in this project
+
+
 ## 🏗 System Workflow
 
 1. Upload CT scan image (NIfTI format)
@@ -201,5 +248,6 @@ http://127.0.0.1:5000
 ## 📜 License
 
 This project is intended for **academic and research purposes only**.
+
 
 
