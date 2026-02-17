@@ -50,11 +50,19 @@ The system is designed to provide **accurate predictions along with explainable 
 
 ### Input Image
 ![Input 1](screenshots/input1.png)
+
+
 ![Input 2](screenshots/input2.png)
 
 ### Output (Segmentation / Prediction)
 ![Output 1](screenshots/output1.png)
+
+### 🔥 Explainable AI Heatmap
+Highlights important regions used for prediction.
+
 ![Output 2](screenshots/output2.png)
+
+
 ![Output 3](screenshots/output3.png)
 
 ## 🏗 System Workflow
@@ -193,4 +201,5 @@ http://127.0.0.1:5000
 ## 📜 License
 
 This project is intended for **academic and research purposes only**.
+
 
