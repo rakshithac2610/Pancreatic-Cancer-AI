@@ -1,32 +1,57 @@
 # 🧠 Prediction and Detection of Pancreatic Cancer using Explainable Multimodal AI
 
 ## 📌 Overview
-This project is an AI-based clinical decision support system for pancreatic cancer detection using CT scans, laboratory data, and radiology reports.
+This project presents an AI-powered clinical decision support system for pancreatic cancer detection and prognosis estimation using a multimodal approach.
 
-## 🚀 Features
-- CT scan tumor detection and segmentation (nnUNet)
-- Tumor volume and size calculation
-- Stage prediction using lab values
-- Survival estimation
-- Explainable AI outputs (Heat Maps, text highlights)
+The system integrates:
+- CT scan imaging
+- Laboratory biomarkers
+- Radiology report text
 
-## 🛠 Tech Stack
-- Python, Flask
-- PyTorch, nnUNet
-- OpenCV, Pydicom
-- NLP (Gemini API)
+It provides not only predictions but also explainable outputs to support clinical interpretation.
 
-## ▶️ How to Run
-1. Install dependencies:  
-   pip install -r requirements.txt  
-2. Run the app:  
-   python app.py  
-3. Open browser:  
-   http://127.0.0.1:5000  
+---
 
-## ⚠️ Note
-Datasets and trained models are not included due to size and privacy constraints.
-mainly for imaging data model is not uploaded 
+## 🚀 Key Features
 
-## 👩‍💻 Author
-Rakshitha C
+### 🖼 Imaging Analysis
+- Tumor detection and segmentation using nnU-Net
+- Automatic tumor localization
+- Overlay visualization on CT scan
+
+### 📊 Quantitative Analysis
+- Tumor volume calculation (mm³)
+- Tumor dimensions (x, y, z in mm)
+- Maximum tumor diameter estimation
+
+### 🧪 Lab-based Prediction
+- Stage prediction using clinical biomarkers:
+  - CA19-9
+  - Total Bilirubin
+  - ALP
+  - Albumin
+  - NLR
+  - Age
+
+### 📈 Prognosis Estimation
+- Personalized survival prediction based on risk score
+
+### 🤖 Explainable AI (XAI)
+- Heatmaps for tumor attention
+- Highlighted radiology report phrases
+- Structured clinical summary using LLM
+
+---
+
+## 🏗 System Architecture
+
+1. Upload CT scan (NIfTI format)
+2. nnU-Net performs segmentation
+3. Tumor metrics are computed
+4. Lab values are analyzed using ML model
+5. Gemini API processes radiology text
+6. Results are displayed in a clinician-friendly dashboard
+
+---
+
+## 📂 Project Structure
