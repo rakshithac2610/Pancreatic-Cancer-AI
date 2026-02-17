@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+
+{% block title %}Prediction - Pancreatic Cancer Detection AI{% endblock %}
+
+{% block content %}
+<style>
+    @media print {
+
+    body * {
+        visibility: hidden;
+    }
+
+    #print-area,
+    #print-area * {
+        visibility: visible;
+    }
+
+    #print-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+
+}
+
+</style>
+<div class="container" style="padding: 3rem 0;">
+    <div class="prediction-form">
+
+        <h1 style="color: var(--primary-color); margin-bottom: 2rem; text-align: center;">
+            <i class="fas fa-stethoscope"></i> Pancreatic Health Analysis
+        </h1>
+
+        {% if result %}
+        <!-- ================= PRINT AREA ================= -->
+<div id="print-area">
+
+    <div class="result-card">
+        <div class="result-header">
+                <div class="result-icon">
+                    <img src="{{png_files[0]}}" style="width:300px;height:300px;"><br>
+                    <center><h3 style="font-size:22px;">Overlay</h3></center>
+                </div>
+                <div class="result-icon">
+                    <img src="{{png_files[1]}}" style="width:300px;height:300px;"><br>
+                    <center><h3 style="font-size:22px;">Segmentation</h3></center>
+                </div>
+                <div class="result-icon">
+                    <img src="{{png_files[2]}}" style="width:300px;height:300px;"><br>
+                    <center><h3 style="font-size:22px;">Heat Map</h3></center>
+                </div>
+        </div>
+        <div style="margin-top:2rem;border-top:1px solid #ddd;padding-top:1rem;">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1rem;">
+                <div><strong>Dice:</strong> {{ dice}}</div>
+                <div><strong>Volume:</strong> {{ volume }}</div>
+                <div><strong>Shape:</strong> {{ Shape}}</div>
+                <div><strong>Voxel count:</strong> {{ voxel_count }}</div>
+                <div><strong>Voxel spacing mm:</strong> {{voxel_spacing_mm }}</div>
+                <div><strong>Middle slice index:</strong> {{middle_slice_index }}</div>
+                <div><strong>Tumor Size (mm)</strong></div>
+                <div>X: {{ tumor_size_x }} mm</div>
+                 <div>Y: {{ tumor_size_y }} mm</div>
+                <div>Z: {{ tumor_size_z }} mm</div>
+                <div><strong>Max Diameter:</strong> {{ tumor_max_diameter }} mm</div>
+
+            </div>
+        </div>
+        <div class="result-header">
+            <div>
+                <h2>
+                    Prediction: {{ result|title }}
+                </h2>
+            </div>
+
+            <div class="confidence-badge">
+                {{ survival }}
+            </div>
+        </div>
+
+        <div class="explanation" style="margin-top:2rem;border-top:1px solid #ddd;padding-top:1rem;">
+            <h3>Advice</h3>
+            <p>{{ explanation }}</p>
+        </div>
+
+        <div class="explanation" style="margin-top:2rem;border-top:1px solid #ddd;padding-top:1rem;">
+            <h3>AI Recommendation</h3>
+
+            {% autoescape false %}
+                {{ AI_REC }}
+            {% endautoescape %}
+
+        </div>
+
+        <div style="margin-top:2rem;border-top:1px solid #ddd;padding-top:1rem;">
+            <h3>Clinical Parameter Summary</h3>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1rem;">
+                <div><strong>Age:</strong> {{ data.age }} years</div>
+                <div><strong>CA19-9:</strong> {{ "%.1f"|format(data.ca19_9) }} U/mL</div>
+                <div><strong>Total Bilirubin:</strong> {{ "%.2f"|format(data.total_bilirubin) }} mg/dL</div>
+                <div><strong>ALP:</strong> {{ "%.1f"|format(data.alp) }} IU/L</div>
+                <div><strong>Albumin:</strong> {{ "%.2f"|format(data.albumin) }} g/dL</div>
+                <div><strong>NLR:</strong> {{ "%.2f"|format(data.nlr) }}</div>
+            </div>
+        </div>
+       
+
+    </div>
+
+    
+
+</div>
+<br><br>
+<center>
+         <button onclick="window.print()" class="btn" style="background:#666;margin-left:1rem;">
+    <i class="fas fa-print"></i> Print Report
+</button>
+    </center>
+    <br><br>
+        {% endif %}
+
+        <!-- ================= PREDICTION FORM ================= -->
+        <form method="POST" action="{{ url_for('prediction') }}" enctype="multipart/form-data">
+
+            <div class="form-grid">
+
+                <!-- Image Upload -->
+                <div class="image-upload-container">
+                    <label>
+                        <i class="fas fa-image"></i> Medical Image Upload
+                    </label>
+
+                    <div class="image-upload" onclick="document.getElementById('image-upload').click()">
+                        <div id="image-preview">
+                            <i class="fas fa-cloud-upload-alt" style="font-size:3rem;color:#666;"></i>
+                            <p>Click to upload CT / MRI image</p>
+                        </div>
+                        <input type="file" id="image-upload" name="image" accept="image/*" style="display:none;">
+                    </div>
+                </div>
+
+                <!-- Clinical Inputs -->
+                <div>
+                    <h3 style="color:var(--primary-color);margin-bottom:1.5rem;">
+                        <i class="fas fa-clipboard-list"></i> Clinical Parameters
+                    </h3>
+
+                    <div class="form-group">
+                        <label>Age (years)</label>
+                        <input type="number" name="age" class="form-control" min="18" max="100" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>CA19-9 (U/mL)</label>
+                        <input type="number" name="ca19_9" step="0.1" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Total Bilirubin (mg/dL)</label>
+                        <input type="number" name="total_bilirubin" step="0.01" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>ALP (IU/L)</label>
+                        <input type="number" name="alp" step="0.1" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Albumin (g/dL)</label>
+                        <input type="number" name="albumin" step="0.01" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>NLR (Neutrophil–Lymphocyte Ratio)</label>
+                        <input type="number" name="nlr" step="0.01" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Symptoms -->
+            <div class="form-group" style="margin-top:2rem;">
+                <label>
+                    <i class="fas fa-comment-medical"></i>Report
+                </label>
+                <textarea name="symptoms" class="form-control" rows="5"
+                          placeholder="Enter report details"></textarea>
+            </div>
+
+            <!-- Disclaimer -->
+            <div style="background:#fff3cd;border-left:4px solid #ffc107;padding:1rem;margin:2rem 0;">
+                <strong>Important:</strong>
+                This AI system is for research and decision-support only. Final diagnosis must be made by a qualified clinician.
+            </div>
+
+            <!-- Submit -->
+            <div style="text-align:center;">
+                <button type="submit" class="btn" style="padding:1rem 3rem;font-size:1.2rem;">
+                    <i class="fas fa-brain"></i> Analyze with AI
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}

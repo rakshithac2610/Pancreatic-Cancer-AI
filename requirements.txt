@@ -1,0 +1,8 @@
+flask
+numpy
+pandas
+torch
+opencv-python
+pydicom
+matplotlib
+nnunetv2

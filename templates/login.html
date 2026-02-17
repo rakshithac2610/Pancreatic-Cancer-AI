@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Pancreatic Cancer Detection AI{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-box">
+        <div class="auth-tabs">
+            <button class="auth-tab active" id="login-tab">Sign In</button>
+            <button class="auth-tab" id="signup-tab">Sign Up</button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" method="POST" action="{{ url_for('login') }}">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-block">Sign In</button>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="signup-form" method="POST" action="{{ url_for('signup') }}" style="display: none;">
+            <div class="form-group">
+                <label for="signup-username">Username</label>
+                <input type="text" id="signup-username" name="username" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="signup-email">Email</label>
+                <input type="email" id="signup-email" name="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="signup-fullname">Full Name (Optional)</label>
+                <input type="text" id="signup-fullname" name="full_name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" name="password" class="form-control" required minlength="6">
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm_password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-block">Create Account</button>
+        </form>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <p style="color: #666;">By continuing, you agree to our Terms of Service and Privacy Policy</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

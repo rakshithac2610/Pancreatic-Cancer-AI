@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Pancreatic Cancer Detection AI{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Predict & Detect Pancreatic Cancer with Explainable AI</h1>
+            <p>Leveraging multimodal artificial intelligence to provide early detection and transparent insights into pancreatic health assessment.</p>
+            <div style="margin-top: 2rem;">
+                {% if 'user_id' not in session %}
+                    <a href="{{ url_for('login') }}" class="btn" style="margin-right: 1rem;">Get Started</a>
+                {% else %}
+                    <a href="{{ url_for('prediction') }}" class="btn" style="margin-right: 1rem;">New Prediction</a>
+                {% endif %}
+                <a href="#features" class="btn" style="background: transparent; border: 2px solid white;">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose Our AI Solution?</h2>
+                <p>Advanced technology for better pancreatic health assessment</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Multimodal AI Analysis</h3>
+                    <p>Combines medical imaging with clinical biomarkers for comprehensive assessment using deep learning algorithms.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                    <h3>Explainable Predictions</h3>
+                    <p>Transparent AI explanations showing which factors contributed to the prediction decision.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>High Accuracy</h3>
+                    <p>Validated AI model achieving over 95% accuracy in detecting pancreatic abnormalities.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3>Clinical Integration</h3>
+                    <p>Designed to assist healthcare professionals in early detection and decision-making.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section style="background: var(--light-color); padding: 5rem 0;">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Simple three-step process for pancreatic health assessment</p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; margin-top: 3rem;">
+                <div style="text-align: center; padding: 2rem;">
+                    <div style="background: var(--secondary-color); color: white; width: 60px; height: 60px; line-height: 60px; border-radius: 50%; margin: 0 auto 1rem; font-size: 1.5rem; font-weight: bold;">1</div>
+                    <h3>Upload & Input</h3>
+                    <p>Upload medical images and enter clinical parameters including biomarkers and symptoms.</p>
+                </div>
+                <div style="text-align: center; padding: 2rem;">
+                    <div style="background: var(--secondary-color); color: white; width: 60px; height: 60px; line-height: 60px; border-radius: 50%; margin: 0 auto 1rem; font-size: 1.5rem; font-weight: bold;">2</div>
+                    <h3>AI Analysis</h3>
+                    <p>Our multimodal AI analyzes the data using advanced neural networks and explainable algorithms.</p>
+                </div>
+                <div style="text-align: center; padding: 2rem;">
+                    <div style="background: var(--secondary-color); color: white; width: 60px; height: 60px; line-height: 60px; border-radius: 50%; margin: 0 auto 1rem; font-size: 1.5rem; font-weight: bold;">3</div>
+                    <h3>Get Results</h3>
+                    <p>Receive detailed report with prediction, confidence score, and transparent explanations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
