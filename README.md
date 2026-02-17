@@ -112,14 +112,46 @@ Radiology report text is provided as user input and analyzed using a Large Langu
 * No real patient-identifiable data is used in this project
 
 
-## 🏗 System Workflow
+### System Architecture
 
-1. Upload CT scan image (NIfTI format)
-2. nnU-Net performs tumor segmentation
-3. Tumor volume and size are calculated
-4. Lab values are processed for stage prediction
-5. Radiology report is analyzed using LLM (Gemini API)
-6. Results are displayed in a clinician-friendly dashboard
+The proposed system follows a multi-layered architecture integrating imaging, clinical, and textual data for pancreatic cancer detection and prognosis.
+
+1. **Presentation Layer**
+
+   * CT Images
+   * Radiology Reports
+   * Laboratory Parameters
+   * Visualization Interface
+
+2. **AI Model Layer**
+
+   * nnU-Net for Tumor Segmentation
+   * Tumor Detection and Localization
+   * Feature Extraction (Volume, Size)
+
+3. **Service Layer**
+
+   * Image Preprocessing
+   * Tumor Volume Calculation
+   * Lab-based Stage Prediction Model
+   * Radiology Text Analysis (LLM - Gemini API)
+   * Survival Estimation
+
+4. **Decision Layer**
+
+   * Tumor Presence Classification
+   * Stage Prediction
+   * Multimodal Feature Fusion
+   * Prognosis Estimation
+   * Clinical Recommendation
+
+5. **Explainable Output Layer**
+
+   * Grad-CAM Heatmaps for Imaging
+   * Highlighted Radiology Text
+   * Lab Value Trends
+   * Final Explainable Report
+
 
 ---
 
@@ -248,6 +280,7 @@ http://127.0.0.1:5000
 ## 📜 License
 
 This project is intended for **academic and research purposes only**.
+
 
 
 
