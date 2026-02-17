@@ -1,57 +1,185 @@
 # 🧠 Prediction and Detection of Pancreatic Cancer using Explainable Multimodal AI
 
 ## 📌 Overview
-This project presents an AI-powered clinical decision support system for pancreatic cancer detection and prognosis estimation using a multimodal approach.
 
-The system integrates:
-- CT scan imaging
-- Laboratory biomarkers
-- Radiology report text
+Pancreatic cancer is one of the most lethal cancers due to late detection and complex clinical evaluation. This project presents an **AI-powered clinical decision support system** that combines **medical imaging, laboratory biomarkers, and radiology reports** to assist in early detection, staging, and prognosis estimation.
 
-It provides not only predictions but also explainable outputs to support clinical interpretation.
+The system is designed to provide **accurate predictions along with explainable outputs**, enabling clinicians to understand the reasoning behind AI decisions.
 
 ---
 
 ## 🚀 Key Features
 
-### 🖼 Imaging Analysis
-- Tumor detection and segmentation using nnU-Net
-- Automatic tumor localization
-- Overlay visualization on CT scan
+### 🖼 Imaging Analysis (CT Scan)
 
-### 📊 Quantitative Analysis
-- Tumor volume calculation (mm³)
-- Tumor dimensions (x, y, z in mm)
-- Maximum tumor diameter estimation
+* Tumor detection and segmentation using **nnU-Net**
+* Automatic identification of tumor region
+* Overlay visualization on CT slices
 
-### 🧪 Lab-based Prediction
-- Stage prediction using clinical biomarkers:
-  - CA19-9
-  - Total Bilirubin
-  - ALP
-  - Albumin
-  - NLR
-  - Age
+### 📊 Tumor Quantification
 
-### 📈 Prognosis Estimation
-- Personalized survival prediction based on risk score
+* Tumor volume calculation (mm³)
+* Tumor dimensions (X, Y, Z)
+* Maximum tumor diameter estimation
+
+### 🧪 Lab-Based Prediction
+
+* Uses clinical biomarkers:
+
+  * CA19-9
+  * Total Bilirubin
+  * ALP
+  * Albumin
+  * NLR
+  * Age
+* Predicts cancer stage using ML model
+
+### 📈 Survival Estimation
+
+* Personalized survival prediction based on risk score
+* Combines stage + lab values
 
 ### 🤖 Explainable AI (XAI)
-- Heatmaps for tumor attention
-- Highlighted radiology report phrases
-- Structured clinical summary using LLM
+
+* Heatmaps showing tumor attention
+* Highlighted radiology report phrases
+* AI-generated clinical summary
 
 ---
 
-## 🏗 System Architecture
+## 🏗 System Workflow
 
-1. Upload CT scan (NIfTI format)
-2. nnU-Net performs segmentation
-3. Tumor metrics are computed
-4. Lab values are analyzed using ML model
-5. Gemini API processes radiology text
+1. Upload CT scan image (NIfTI format)
+2. nnU-Net performs tumor segmentation
+3. Tumor volume and size are calculated
+4. Lab values are processed for stage prediction
+5. Radiology report is analyzed using LLM (Gemini API)
 6. Results are displayed in a clinician-friendly dashboard
 
 ---
 
 ## 📂 Project Structure
+
+```
+Pancreatic-Cancer-AI/
+│
+├── app.py                  # Main Flask application
+├── Analyzer.py             # Imaging pipeline (nnU-Net inference)
+├── lab_prediction.py       # Lab-based stage prediction
+├── database.py             # Database setup (SQLite)
+├── models.py               # User model
+├── templates/              # HTML frontend
+├── static/                # Uploads and output images
+│   ├── uploads/
+│   └── output_case/
+├── requirements.txt        # Dependencies
+├── README.md               # Project documentation
+```
+
+---
+
+## 🛠 Tech Stack
+
+* **Backend:** Python, Flask
+* **Deep Learning:** PyTorch, nnU-Net
+* **Image Processing:** OpenCV, Nibabel, NumPy
+* **Database:** SQLite
+* **NLP:** Google Gemini API
+* **Visualization:** Matplotlib
+
+---
+
+## ▶️ Installation & Setup
+
+### 1. Clone Repository
+
+```
+git clone https://github.com/your-username/Pancreatic-Cancer-AI.git
+cd Pancreatic-Cancer-AI
+```
+
+### 2. Install Dependencies
+
+```
+pip install -r requirements.txt
+```
+
+### 3. Set Environment Variable
+
+For Gemini API:
+
+```
+set GEMINI_API_KEY=your_api_key
+```
+
+### 4. Configure nnU-Net Paths
+
+Update paths in `Analyzer.py`:
+
+```
+nnUNet_raw
+nnUNet_preprocessed
+nnUNet_results
+```
+
+### 5. Run Application
+
+```
+python app.py
+```
+
+### 6. Open in Browser
+
+```
+http://127.0.0.1:5000
+```
+
+---
+
+## 📊 Outputs
+
+* Tumor segmentation image
+* Overlay visualization
+* Heatmap (XAI)
+* Tumor volume & size
+* Predicted cancer stage
+* Survival estimation
+* AI-generated clinical explanation
+
+---
+
+## ⚠️ Important Notes
+
+* Datasets and trained models are **not included** due to size and privacy constraints
+* Synthetic dataset is used for lab-based predictions
+* Users must configure nnU-Net environment locally
+
+---
+
+## 🎯 Applications
+
+* Clinical decision support systems
+* Radiology assistance tools
+* Early cancer detection research
+* Explainable AI in healthcare
+
+---
+
+## 🔮 Future Work
+
+* Integration with hospital PACS systems
+* Real-time inference optimization
+* Multi-institutional dataset validation
+* Deployment as web/cloud service
+
+---
+
+## 👩‍💻 Author
+
+**Rakshitha C**
+
+---
+
+## 📜 License
+
+This project is intended for **academic and research purposes only**.
